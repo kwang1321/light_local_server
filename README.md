@@ -90,4 +90,5 @@ file:///home/gqq/MyProjects/nodejs/aws_lambda/queries/query_by_partition.json \
 ```
 aws dynamodb describe-table --table-name MusicCollection --endpoint-url http://localhost:8000
 aws dynamodb scan --table-name Music --select "COUNT" --endpoint-url http://localhost:8000
+aws dynamodb scan --table-name iot_order --endpoint-url http://localhost:8000
 ```

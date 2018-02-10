@@ -9,12 +9,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "ddb": "nodemon local_ddb_server.js"
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.188.0",
+    "aws-sdk": "^2.191.0",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "nodemon": "^1.14.12",

@@ -28,9 +28,7 @@ app.get("/", (req, res) => {
 //1. insert an order.
 app.put("/orders", (req, res) => {
   let raw_order = req.body;
-  if (
-    !(raw_order.customer_name && raw_order.credit_card_info && raw_order.shipping_address && raw_order.telephone_number && raw_order.product_number)
-  ) {
+  if (!(raw_order.customer_name && raw_order.credit_card_info && raw_order.shipping_address && raw_order.telephone_number && raw_order.product_number)) {
     res.send({ error: "request parameters error, please check your parameters" });
     return;
   }

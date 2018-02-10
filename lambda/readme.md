@@ -1,12 +1,13 @@
-HTTP APIS for cen646
-=====
-### 1. __Add new order__
+# HTTP APIS for cen646
 
-__url__ : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders
+### 1. **Add new order**
 
-__method__ : put
+**url** : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders
 
-__example__:
+**method** : put
+
+**example**:
+
 ```curl
 curl -v -X PUT \
   'https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders' \
@@ -34,13 +35,14 @@ __respsonse__:
 }
 ```
 
-### 2. __update an order__
+### 2. **update an order**
 
-__url__ : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/{order_id}
+**url** : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/{order_id}
 
-__method__ : post
+**method** : post
 
-__example__:
+**example**:
+
 ```curl
 curl -v -X POST \
   'https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/222_6953437082085556' \
@@ -65,13 +67,15 @@ __respsonse__:
    "credit_card_info" : "0000222233334444"
 }
 ```
-### 3. __get an order by order_id__
 
-__url__ : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/{order_id}
+### 3. **get an order by order_id**
 
-__method__ : get
+**url** : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/{order_id}
 
-__example__:
+**method** : get
+
+**example**:
+
 ```curl
 curl -v -X GET 'https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/222_6953437082085556' | json_pp
 __respsonse__:
@@ -88,14 +92,15 @@ __respsonse__:
    "location" : "33,22"
 }
 ```
-### 4. __get all the new orders__
 
-__url__ : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/new
+### 4. **get all the new orders**
 
-__method__ : get
+**url** : https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/new
 
-__example__:
+**method** : get
+
+**example**:
+
 ```curl
 curl -v -X GET 'https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/new' | json_pp
 ```
-

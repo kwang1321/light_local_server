@@ -1,5 +1,5 @@
 var express = require("express");
-var df = require("./date_format.js");
+var df = require("./common/date_format.js");
 var app = express();
 var request = require("request");
 
@@ -18,42 +18,9 @@ app.use(bodyParser.json());
 
 app.set("view engine", "ejs");
 
-/*
-just for test
-*/
-app.get("/hello", function(req, res) {
-  // return ;
-  res.send("Hello Express");
-});
-
-/*
-leading to list page.
-*/
-app.get("/", function(req, res) {
-  res.render("index.html");
-});
-
-/*
-get product
-*/
-app.get("/product", function(req, res) {
-  // read from DDB
-  read_product_ddb();
-});
-
-app.put("/product/", function(req, res) {
-  console.log(req.body);
-  //write information of req.body into DDB
-  write_into_ddb();
-});
-/*
-leading to the insert form page.
-*/
-app.get("/new", function(req, res) {
-  console.log("new get");
-  res.render("newItem.html");
-});
-
+// call test APIs
+require("./routes/test")(app);
+require("./routes/classcourse")(app);
 /*
 leading to the insert form page.
 */
@@ -89,5 +56,5 @@ app.post("/new", function(req, res) {
   });
 });
 
-app.listen(8083);
-console.log("Server is running on port 8083");
+app.listen(5000);
+console.log("Server is running on port 5000");
