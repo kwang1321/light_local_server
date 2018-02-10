@@ -7,7 +7,7 @@
 3. use command **'node test/local_ddb_test/create-table-Devices_data.js'** to create table named **DevicesData** locally.
 4. use command **npm run start** to start with static mode, use **npm run dev** to start with develop mode(if you modify Server side files, server will restart automatically).
 5. make sure to create **LOC_ENV.js** under config folder. using code:
-  ```json
+  ```javascript
   // if it is a DEVELOP version
   module.exports = {
     "Release": "DEV"
