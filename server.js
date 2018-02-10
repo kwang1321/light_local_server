@@ -21,6 +21,7 @@ app.set("view engine", "ejs");
 // call test APIs
 require("./routes/test")(app);
 require("./routes/classcourse")(app);
+require("./routes/dh11")(app);
 /*
 leading to the insert form page.
 */

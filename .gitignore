@@ -40,3 +40,6 @@ bower_components
 # Python
 *.pyc
 nohup.out
+
+# For this project
+LOC_ENV.js
