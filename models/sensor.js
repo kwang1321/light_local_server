@@ -1,4 +1,3 @@
-const generator = require("../common/id_generator");
 class Sensor {
   static get_table_name() {
     return "DevicesData";

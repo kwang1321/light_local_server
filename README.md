@@ -1,95 +1,42 @@
-# Display product orders
+# Light Local Server for Sensors
 
-## Local DynamoDB & CLI
+## Interfaces
 
-* Start _Local_ DDB
+* #### add new DH11 sensor data.
 
-```shell
-java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
-```
+  data pattern:
 
-* To access DynamoDB running locally, use the **--endpoint-url** parameter. The following is an example of using the **AWS CLI** to list the tables in DynamoDB on your computer:
+  ```json
+  {
+    "device_id": "String of device_id",
+    "time_stamp": "Number of dateTime",
+    "info": {
+      "temperature": "Number of temperature",
+      "humidity": "Number of humidity",
+      "...": "Additional Information"
+    }
+  }
+  ```
 
-```
-aws dynamodb list-tables --endpoint-url http://localhost:8000
-```
+  example:
 
-* The AWS CLI can't use the downloadable version of DynamoDB as a default endpoint; therefore, you must specify **--endpoint-url** with each AWS CLI command.
+  ```
+  curl -v -X POST  'http://localhost:5000/api/v1/dh11'  -H 'content-type: application/json'  -d '{
+  "device_id": "dh11_xyzpp_sdfdsf_fx231",
+  "time_stamp": 1518244416597,
+  "info": {
+      "temperature": 80.25,
+      "humidity":50.34
+    }
+  }' | json_pp
+  ```
 
-* Verify that the AWS CLI installed correctly by running **aws --version.**
+* #### get data from DH11 sensor id
 
-```
-$ aws --version
+  get request using **http://localhost:5000/api/v1/dh11/{device_id}**
 
-  _aws-cli/1.11.84 Python/3.6.2 Linux/4.4.0-59-generic botocore/1.5.47_
-```
+  example:
 
-* The AWS CLI is updated regularly to add support for new services and commands. To update to the latest version of the **AWS CLI**, run the installation command again.
-
-```
-$ pip install awscli --upgrade --user
-```
-
-* If you need to uninstall the AWS CLI, use pip uninstall.
-
-```
-$ pip uninstall awscli
-```
-
-* Create Table
-
-  For example, the following command creates a table named Music. The partition key is Artist, and the sort key is SongTitle. (For easier readability, long commands in this section are broken into separate lines.)
-
-```
-aws dynamodb create-table \
-  --table-name Music \
-  --attribute-definitions \
-      AttributeName=Artist,AttributeType=S \
-      AttributeName=SongTitle,AttributeType=S \
-  --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE \
-  --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-  --endpoint-url http://localhost:8000
-```
-
-* The following commands add new items to the table. These examples use a combination of shorthand syntax and JSON.
-
-```
-aws dynamodb put-item \
---table-name Music \
---item \
- '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
---return-consumed-capacity TOTAL \
---endpoint-url http://localhost:8000
-
-aws dynamodb put-item \
---table-name Music \
---item \
- '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today 2"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
---return-consumed-capacity TOTAL \
---endpoint-url http://localhost:8000
-
-aws dynamodb put-item \
- --table-name Music \
- --item '{"Artist": {"S": "Acme Band"}, "SongTitle": {"S": "Happy Day"}, "AlbumTitle": {"S": "Songs About Life"} }' \
- --return-consumed-capacity TOTAL \
- --endpoint-url http://localhost:8000
-```
-
-```
-aws dynamodb query --table-name Music --key-conditions \
-file:///home/gqq/MyProjects/nodejs/aws_lambda/queries/query_by_partition_sort.json \
---endpoint-url http://localhost:8000
-
-aws dynamodb query --table-name Music --key-conditions \
-file:///home/gqq/MyProjects/nodejs/aws_lambda/queries/query_by_partition.json \
---endpoint-url http://localhost:8000
-```
-
-* Some useful CLI commands **Describe Table**, **Table Count**
-
-```
-aws dynamodb describe-table --table-name MusicCollection --endpoint-url http://localhost:8000
-aws dynamodb scan --table-name Music --select "COUNT" --endpoint-url http://localhost:8000
-aws dynamodb scan --table-name iot_order --endpoint-url http://localhost:8000
-aws dynamodb scan --table-name DevicesData --endpoint-url http://localhost:8000
-```
+  ```
+  curl -v -X GET "http://localhost:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231" | json_pp
+  ```
