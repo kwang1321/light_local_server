@@ -7,6 +7,7 @@ module.exports = {
 };
 
 if (LOC_ENV.Release === "RELEASE") {
+  console.log("this is a RELEASE version");
   module.exports.ENV = require("./prod.js");
 } else {
   module.exports.ENV = require("./dev.js");

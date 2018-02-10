@@ -18,6 +18,7 @@
   };
   ```
 6. the code for client side can be finished in **client** folder.
+7. add your **hosts** file one information as __10.1.15.90  localtest.itu.edu__.
 
 ## Interfaces
 
@@ -40,7 +41,7 @@
   example:
 
   ```
-  curl -v -X POST  'http://localhost:5000/api/v1/dh11'  -H 'content-type: application/json'  -d '{
+  curl -v -X POST  'http://localtest.itu.edu:5000/api/v1/dh11'  -H 'content-type: application/json'  -d '{
   "device_id": "dh11_xyzpp_sdfdsf_fx231",
   "time_stamp": 1518244416597,
   "info": {
@@ -55,5 +56,5 @@
   example:
 
   ```
-  curl -v -X GET "http://localhost:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231" | json_pp
+  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231" | json_pp
   ```
