@@ -2,7 +2,7 @@
 
 ## Interfaces
 
-* #### add new DH11 sensor data.
+* #### add new DH11 sensor data. [_/api/v1/dh11_]
 
   data pattern:
 
@@ -31,9 +31,7 @@
   }' | json_pp
   ```
 
-* #### get data from DH11 sensor id
-
-  get request using **http://localhost:5000/api/v1/dh11/{device_id}**
+* #### get data from DH11 sensor id [_/api/v1/dh11/{device_id}_]
 
   example:
 
