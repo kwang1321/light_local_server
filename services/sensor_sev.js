@@ -66,6 +66,7 @@ const SensorSev = {
   },
 
   query_by_id_time: (device_id, res, stime, etime = Date.now()) => {
+    console.log(stime);
     console.log(new Date(stime).format(df.masks.isoDateTime3));
     console.log(new Date(etime).format(df.masks.isoDateTime3));
     var params = {

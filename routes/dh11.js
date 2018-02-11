@@ -1,5 +1,6 @@
 const consts = require("../config/consts");
 const dh11Service = require("../services/sensor_sev");
+const df = require("../common/date_format.js");
 
 module.exports = app => {
   // insert an item.
@@ -18,15 +19,17 @@ module.exports = app => {
   // get item by dh11.id and start time(yyyy-mm-ddTHH:MM:ss)
   app.get(consts.DH11Domin + ":id/:stime", (req, res) => {
     let order_id = req.params.id;
-    let stime = new Date(req.params.stime).getTime();
+    console.log("stime", req.params.stime);
+    let stime = df.parseDateLocal(req.params.stime).getTime();
+    // console.log("from time stime", df.parseDateLocal(stime).format(df.masks.isoDateTime3));
     dh11Service.query_by_id_time(order_id, res, stime);
   });
 
   // get item by dh11.id and start time(yyyy-mm-ddTHH:MM:ss) and end time
   app.get(consts.DH11Domin + ":id/:stime/:etime", (req, res) => {
     let order_id = req.params.id;
-    let stime = new Date(req.params.stime).getTime();
-    let etime = new Date(req.params.etime).getTime();
+    let stime = df.parseDateLocal(req.params.stime).getTime();
+    let etime = df.parseDateLocal(req.params.etime).getTime();
     dh11Service.query_by_id_time(order_id, res, stime, etime);
   });
 };

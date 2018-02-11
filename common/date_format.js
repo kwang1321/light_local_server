@@ -122,6 +122,12 @@ dateFormat.i18n = {
     ]
 };
 
+dateFormat.parseDateLocal = s => {
+  let ds = s.split(/\D/).map(s => parseInt(s));
+  ds[1] = ds[1] - 1; // adjust month
+  return new Date(...ds);
+};
+
 // For convenience...
 Date.prototype.format = function(mask, utc) {
     return dateFormat(this, mask, utc);
