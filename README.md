@@ -7,18 +7,20 @@
 3. use command **'node test/local_ddb_test/create-table-Devices_data.js'** to create table named **DevicesData** locally.
 4. use command **npm run start** to start with static mode, use **npm run dev** to start with develop mode(if you modify Server side files, server will restart automatically).
 5. make sure to create **LOC_ENV.js** under config folder. using code:
+
   ```javascript
   // if it is a DEVELOP version
   module.exports = {
-    "Release": "DEV"
+    Release: "DEV"
   };
   // if it is a RELEASE version
   module.exports = {
-    "Release": "RELEASE"
+    Release: "RELEASE"
   };
   ```
+
 6. the code for client side can be finished in **client** folder.
-7. add your **hosts** file one information as __10.1.15.90  localtest.itu.edu__.
+7. add your **hosts** file one information as **10.1.15.90 localtest.itu.edu**.
 
 ## Interfaces
 
@@ -51,10 +53,12 @@
   }' | json_pp
   ```
 
-* #### get data from DH11 sensor id [_/api/v1/dh11/{device_id}_]
+* #### get data from DH11 sensor id [_/api/v1/dh11/{device_id}_] [_/api/v1/dh11/{device_id}/{start_time}_] [_/api/v1/dh11/{device_id}/{start_time}/{end_time}_]
 
   example:
 
   ```
   curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231" | json_pp
+  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231/2018-01-31 11:22:23" | json_pp
+  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx232/2018-02-09T23:22:23/2019-01-31T11:22:23" | json_pp
   ```
