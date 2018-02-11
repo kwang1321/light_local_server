@@ -53,12 +53,12 @@
   }' | json_pp
   ```
 
-* #### get data from DH11 sensor id [_/api/v1/dh11/{device_id}_] [_/api/v1/dh11/{device_id}/{start_time}_] [_/api/v1/dh11/{device_id}/{start_time}/{end_time}_]
+* #### get data from DH11 sensor id, start_time, end_time [_/api/v1/dh11/{device_id}_] [_/api/v1/dh11/{device_id}/{start_time}_] [_/api/v1/dh11/{device_id}/{start_time}/{end_time}_]
 
   example:
 
   ```
   curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231" | json_pp
-  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231/2018-02-10T00:00:00" | json_pp
+  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231/2018-02-10" | json_pp
   curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231/2018-02-09T23:22:23/2019-02-10T11:22:23" | json_pp
   ```
