@@ -43,3 +43,4 @@ nohup.out
 
 # For this project
 LOC_ENV.js
+*.ddb.txt
