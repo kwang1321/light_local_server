@@ -86,8 +86,9 @@ file:///home/gqq/MyProjects/nodejs/aws_lambda/queries/query_by_partition.json \
 * Some useful CLI commands **Describe Table**, **Table Count**
 
 ```
-aws dynamodb describe-table --table-name MusicCollection --endpoint-url http://localhost:8000
+aws dynamodb describe-table --table-name DevicesData --endpoint-url http://localhost:8000
 aws dynamodb scan --table-name DevicesData --select "COUNT" --endpoint-url http://localhost:8000
 aws dynamodb scan --table-name DevicesData --endpoint-url http://localhost:8000
 node get_items_DevicesData.js 000000007faf0e8e-Pi1 2018-01-01 2019-03-04
+aws dynamodb query --table-name DevicesData --projection-expression "device_id" --key-condition-expression "device_id = :v1 and time_stamp between :start and :end" --expression-attribute-values file://search_filter_DeviceData.json --endpoint-url http://localhost:8000
 ```

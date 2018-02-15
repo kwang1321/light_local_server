@@ -17,13 +17,13 @@ let stretime = process.argv[4];
 const exportfilename = `${device_id}_data.ddb.txt`;
 
 let writetofile = res => {
+  var fs = require("fs");
+  var logger = fs.createWriteStream(`./${exportfilename}`, {
+    flags: "a" // 'a' means appending (old data will be preserved)
+  });
+
   for (let i = 0; i < res.length; i++) {
-    let content = JSON.stringify(res[i]);
-    require("fs").appendFile(`./${exportfilename}`, content + "\n", function(err) {
-      if (err) {
-        console.error("Crap happens");
-      }
-    });
+    logger.write(JSON.stringify(res[i]) + "\n");
   }
 };
 
