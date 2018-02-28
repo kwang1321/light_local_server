@@ -14,7 +14,8 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-
+// for the text/plain
+app.use(bodyParser.text());
 app.set("view engine", "ejs");
 
 require("./routes/test")(app);
