@@ -3,7 +3,8 @@ const PREFIX = "/api/v1/";
 module.exports = {
   EPOCH: 1300000000000,
   ClassCourseDomin: PREFIX + "iotclass/",
-  DH11Domin: PREFIX + "dh11/"
+  DH11Domin: PREFIX + "dh11/",
+  RFIDDomin: PREFIX + "rfid/"
 };
 
 if (LOC_ENV.Release === "RELEASE") {
