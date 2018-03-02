@@ -2,7 +2,6 @@ import "react-table/react-table.css";
 import React from "react";
 import ReactTable from "react-table";
 import axios from "axios";
-import df from "../common/date_format";
 
 class TagTable extends React.Component {
   constructor(props) {
@@ -35,7 +34,7 @@ class TagTable extends React.Component {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    return year + "-" + month + "-" + day + " " + hours + ":" + minutes;
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
   render() {
     const { data } = this.state;
