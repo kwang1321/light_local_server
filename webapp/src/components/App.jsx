@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import TagWriter from "./TagWriter";
+import TagTable from "./TagTable";
 
 const Landing = () => [
   <h2 key="1">
-    <a href="/tagwriter">Tag Writer</a>
+    <a href="/tagwriter?m=00000000000x00000">Tag Writer</a>
   </h2>,
   <h2 key="2">
-    <a href="/tag2">tag2</a>
+    <a href="/tagTable">Tag Table</a>
   </h2>
 ];
-const Dashboard = () => <h2>Dashboard</h2>;
-const Surveynew = () => <h2>Surveynew</h2>;
 
 class App extends Component {
   render() {
@@ -20,7 +19,7 @@ class App extends Component {
         <div className="container">
           <Route exact path="/" component={Landing} />
           <Route exact path="/tagwriter" component={TagWriter} />
-          <Route exact path="/tag2" component={Surveynew} />
+          <Route exact path="/tagTable" component={TagTable} />
         </div>
       </BrowserRouter>
     );
