@@ -8,7 +8,7 @@ class TagTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.formatDate = this.formatDate.bind(this);
+    this.getDate = this.getDate.bind(this);
   }
   componentDidMount() {
     axios
@@ -19,30 +19,44 @@ class TagTable extends React.Component {
       });
   }
 
-  formatDate(value) {
-    return new Date(value).format(df.masks.isoDateTime2);
-  }
+  getDate(timestamp) {
+    var date = new Date(timestamp);
 
+    var year = date.getUTCFullYear();
+    var month = date.getUTCMonth() + 1;
+    var day = date.getUTCDate();
+    var hours = date.getUTCHours();
+    var minutes = date.getUTCMinutes();
+    var seconds = date.getUTCSeconds();
+
+    month = month < 10 ? "0" + month : month;
+    day = day < 10 ? "0" + day : day;
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return year + "-" + month + "-" + day + " " + hours + ":" + minutes;
+  }
   render() {
     const { data } = this.state;
 
     const columns = [
       {
         Header: "EPC Memory",
-        accessor: "EPC" // String-based value accessors!
+        accessor: "EPC"
       },
       {
         Header: "Time",
         accessor: "timestamp",
-        Cell: props => <span>{this.formatDate(props.value)}</span> // Custom cell components!
+        Cell: props => <span>{this.getDate(props.value)}</span> // Custom cell components!
       },
       {
         Header: "TID Memory",
-        accessor: "TID" // Custom value accessors!
+        accessor: "TID"
       },
       {
         Header: "USR Memory",
-        accessor: "USR" // Custom value accessors!
+        accessor: "USR"
       },
       {
         Header: "lantitude",
