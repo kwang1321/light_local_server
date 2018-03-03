@@ -2,20 +2,19 @@ import "react-table/react-table.css";
 import React from "react";
 import ReactTable from "react-table";
 import axios from "axios";
+import { RFID } from "../consts";
 
-class TagTable extends React.Component {
+class UHFTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.getDate = this.getDate.bind(this);
   }
   componentDidMount() {
-    axios
-      .get("https://7x4xxa5z82.execute-api.us-west-2.amazonaws.com/rfid/")
-      .then(res => {
-        res.data.sort((d1, d2) => d2.timestamp - d1.timestamp);
-        this.setState({ data: res.data });
-      });
+    axios.get(`${RFID.RFID_URL}${RFID.UHF}`).then(res => {
+      res.data.sort((d1, d2) => d2.timestamp - d1.timestamp);
+      this.setState({ data: res.data });
+    });
   }
 
   getDate(timestamp) {
@@ -72,4 +71,4 @@ class TagTable extends React.Component {
   }
 }
 
-export default TagTable;
+export default UHFTable;
