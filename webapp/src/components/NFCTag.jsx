@@ -6,7 +6,7 @@ const qs = require("query-string");
 class NFCTag extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { buttonActive: true };
     const parsed = qs.parse(props.location.search);
     if (!parsed.m) return;
     const infos = parsed.m.split("x");
@@ -21,17 +21,16 @@ class NFCTag extends React.Component {
 
   async saveNFCTag(event) {
     const { uid, counter } = this.state;
+    this.setState({ buttonActive: false });
     const res = await axios.post(`${RFID.RFID_URL}${RFID.NFC}`, {
       uid,
       counter
     });
-    console.log(res);
-    // Materialize.toast(message, displayLength, className, completeCallback);
-    window.Materialize.toast(res.data, 4000); // 4000 is the duration of the toast
+    window.Materialize.toast(res.data, 4000);
   }
 
   render() {
-    let { uid, counter } = this.state;
+    let { uid, counter, buttonActive } = this.state;
     uid = uid || "need uid";
     counter = counter || "need counter";
     return (
@@ -52,7 +51,9 @@ class NFCTag extends React.Component {
         <div style={{ margin: "15px 0px" }} className="row">
           <div className="col s12 center">
             <a
-              className="waves-effect waves-light btn"
+              className={
+                buttonActive ? "waves-effect waves-light btn" : "btn disabled"
+              }
               onClick={this.saveNFCTag}
             >
               Save Tag
