@@ -4,7 +4,8 @@ module.exports = {
   EPOCH: 1300000000000,
   ClassCourseDomin: PREFIX + "iotclass/",
   DH11Domin: PREFIX + "dh11/",
-  RFIDDomin: PREFIX + "rfid/"
+  RFIDDomin: PREFIX + "rfid/",
+  REMOTEDomin: `https://wkh47ps425.execute-api.us-west-2.amazonaws.com/lightlocal${PREFIX}dh11/`
 };
 
 if (LOC_ENV.Release === "RELEASE") {

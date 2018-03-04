@@ -1,12 +1,23 @@
 const consts = require("../config/consts");
 const dh11Service = require("../services/sensor_sev");
+const remoteService = require("../services/remote_sev");
 const df = require("../common/date_format.js");
+const Sensor = require("../models/sensor");
 
 module.exports = app => {
   // insert an item.
   app.post(consts.DH11Domin, (req, res) => {
     console.log("post dh11services");
-    dh11Service.insert(req.body, "DH11", res);
+    const data = { ...req.body, device_name: "DH11" };
+    let sensorModel = new Sensor(data);
+    if (!sensorModel.check()) {
+      res.send({
+        error: "request parameters error, please check your parameters"
+      });
+      return;
+    }
+    dh11Service.insert(sensorModel, res);
+    remoteService.postToRemote(sensorModel.sensorDBModel);
   });
 
   // get item by dh11.id

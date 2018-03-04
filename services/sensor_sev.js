@@ -10,25 +10,16 @@ let doQuery = (params, res) => {
     } else {
       let result = [];
       for (let item of data.Items) {
-        // console.log("item", item);
         result.push(new Sensor(item));
       }
+      result.sort((r1, r2) => r2.time_stamp - r1.time_stamp);
       res.send(result);
     }
   });
 };
 
 const SensorSev = {
-  insert: (data, device_name, res) => {
-    data.device_name = device_name;
-    let sensorModel = new Sensor(data);
-    console.log(sensorModel.datetime_format);
-    // order has some information errors.
-    if (!sensorModel.check()) {
-      res.send({ error: "request parameters error, please check your parameters" });
-      return;
-    }
-
+  insert: (sensorModel, res) => {
     var params = {
       TableName: Sensor.get_table_name(),
       Item: sensorModel.sensorDBModel,
@@ -41,7 +32,10 @@ const SensorSev = {
           console.log("error is " + err);
           res.send({ error: "putting item into dynamodb failed: " + err });
         } else {
-          console.log("great success: " + JSON.stringify(data, null, 2));
+          console.log(
+            "great success: ",
+            JSON.stringify(sensorModel.sensorDBModel, null, 2)
+          );
           res.send(sensorModel);
         }
       });
@@ -61,17 +55,18 @@ const SensorSev = {
       ExpressionAttributeValues: {
         ":device_id": device_id
       }
+      // Limit: 2
     };
     doQuery(params, res);
   },
 
   query_by_id_time: (device_id, res, stime, etime = Date.now()) => {
-    console.log(stime);
     console.log(new Date(stime).format(df.masks.isoDateTime3));
     console.log(new Date(etime).format(df.masks.isoDateTime3));
     var params = {
       TableName: Sensor.get_table_name(),
-      KeyConditionExpression: "#device_id = :device_id and time_stamp between :start and :end",
+      KeyConditionExpression:
+        "#device_id = :device_id and time_stamp between :start and :end",
       ExpressionAttributeNames: {
         "#device_id": "device_id"
       },
