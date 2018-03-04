@@ -1,0 +1,60 @@
+{
+  resource: "/uhf",
+  path: "/uhf",
+  httpMethod: "GET",
+  headers: {
+    Accept:
+      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "zh,zh-CN;q=0.9,en-US;q=0.8,en;q=0.7",
+    "cache-control": "max-age=0",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "US",
+    Host: "7x4xxa5z82.execute-api.us-west-2.amazonaws.com",
+    "upgrade-insecure-requests": "1",
+    "User-Agent":
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36",
+    Via: "2.0 d01884a3320364227d925bce1a38f0ad.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "VtMBlalZv5oE_Z9o4wLQw2LMoiXuOb9CAKmjssH8EKJvRzH8PDR-5Q==",
+    "X-Amzn-Trace-Id": "Root=1-5a9b2ec4-52d34c4824f9179ca4b69e1c",
+    "X-Forwarded-For": "24.6.174.107, 54.239.203.102",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  queryStringParameters: null,
+  pathParameters: null,
+  stageVariables: null,
+  requestContext: {
+    requestTime: "03/Mar/2018:23:24:52 +0000",
+    path: "/rfid/uhf",
+    accountId: "747472867477",
+    protocol: "HTTP/1.1",
+    resourceId: "xlwo4a",
+    stage: "rfid",
+    requestTimeEpoch: 1520119492844,
+    requestId: "13604346-1f3a-11e8-8d9d-7b055eb7b480",
+    identity: {
+      cognitoIdentityPoolId: null,
+      accountId: null,
+      cognitoIdentityId: null,
+      caller: null,
+      sourceIp: "24.6.174.107",
+      accessKey: null,
+      cognitoAuthenticationType: null,
+      cognitoAuthenticationProvider: null,
+      userArn: null,
+      userAgent:
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36",
+      user: null
+    },
+    resourcePath: "/uhf",
+    httpMethod: "GET",
+    apiId: "7x4xxa5z82"
+  },
+  body: null,
+  isBase64Encoded: false
+}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import TagWriter from "./TagWriter";
+import NFCTag from "./NFCTag";
 import UHFTable from "./UHFTable";
 
 const Landing = () => (
@@ -20,7 +20,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="container">
           <Route exact path="/" component={Landing} />
-          <Route exact path="/tagwriter" component={TagWriter} />
+          <Route exact path="/tagwriter" component={NFCTag} />
           <Route exact path="/uhf" component={UHFTable} />
         </div>
       </BrowserRouter>
