@@ -2,17 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import NFCTag from "./NFCTag";
 import UHFTable from "./UHFTable";
-
-const Landing = () => (
-  <div className="collection grey darken-2">
-    <a href="/tagwriter?m=00000000000x00000" className="collection-item">
-      Tag Writer
-    </a>
-    <a href="/uhf" className="collection-item">
-      UHF DATA TABLE
-    </a>
-  </div>
-);
+import NFCTable from "./NFCTable";
+import Landing from "./Landing";
 
 class App extends Component {
   render() {
@@ -22,6 +13,7 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route exact path="/tagwriter" component={NFCTag} />
           <Route exact path="/uhf" component={UHFTable} />
+          <Route exact path="/nfc" component={NFCTable} />
         </div>
       </BrowserRouter>
     );

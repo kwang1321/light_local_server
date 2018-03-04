@@ -3,6 +3,7 @@ import React from "react";
 import ReactTable from "react-table";
 import axios from "axios";
 import { RFID, convertToDateString } from "../consts";
+import Header from "./Header";
 
 class UHFTable extends React.Component {
   constructor(props) {
@@ -11,7 +12,6 @@ class UHFTable extends React.Component {
   }
   componentDidMount() {
     axios.get(`${RFID.RFID_URL}${RFID.UHF}`).then(res => {
-      res.data.sort((d1, d2) => d2.timestamp - d1.timestamp);
       this.setState({ data: res.data });
     });
   }
@@ -48,7 +48,24 @@ class UHFTable extends React.Component {
         Cell: props => <span className="number">{props.value}</span> // Custom cell components!
       }
     ];
-    return <ReactTable data={data} columns={columns} />;
+    const defaultSorted = [
+      {
+        id: "timestamp",
+        desc: true
+      }
+    ];
+    return (
+      <div>
+        <Header left="Main" url="/">
+          Data of UHF
+        </Header>
+        <ReactTable
+          data={data}
+          columns={columns}
+          defaultSorted={defaultSorted}
+        />;
+      </div>
+    );
   }
 }
 
