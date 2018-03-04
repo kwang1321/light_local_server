@@ -10,6 +10,9 @@ const Landing = () => (
     <a href="/nfc" className="collection-item">
       NFC DATA TABLE
     </a>
+    <a href="/dh11" className="collection-item">
+      DH11 DATA TABLE
+    </a>
   </div>
 );
 export default Landing;

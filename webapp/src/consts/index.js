@@ -4,6 +4,12 @@ export const RFID = {
   NFC: "nfc"
 };
 
+export const LIGHT_LOCAL = {
+  URL:
+    "https://wkh47ps425.execute-api.us-west-2.amazonaws.com/lightlocal/api/v1/",
+  DH11: "dh11"
+};
+
 export const convertToDateString = timestamp => {
   var date = new Date(timestamp);
 

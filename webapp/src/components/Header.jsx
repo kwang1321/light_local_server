@@ -7,6 +7,10 @@ function getLeft(url, left) {
   return <a role="button">&nbsp;</a>;
 }
 
+function refreshPage() {
+  window.location.reload();
+}
+
 class Header extends React.Component {
   render() {
     const { children, url, left } = this.props;
@@ -18,6 +22,13 @@ class Header extends React.Component {
           </a>
           <ul id="nav-mobile" className="left hide-on-med-and-down">
             <li>{getLeft(url, left)}</li>
+          </ul>
+          <ul className="right hide-on-med-and-down">
+            <li>
+              <a role="button" onClick={e => refreshPage()}>
+                <i className="material-icons">refresh</i>
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
