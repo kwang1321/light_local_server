@@ -29,7 +29,7 @@ class DH11Table extends React.Component {
 
   componentDidMount() {
     this.getInfoFromRemote();
-    this.interval = setInterval(this.getInfoFromRemote, 5000);
+    this.interval = setInterval(this.getInfoFromRemote, 35000);
   }
 
   render() {
