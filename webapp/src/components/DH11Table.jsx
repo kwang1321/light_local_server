@@ -11,7 +11,7 @@ class DH11Table extends React.Component {
     super(props);
     this.state = {};
     const parsed = qs.parse(props.location.search);
-    const id = parsed.id || "dh11_xyzpp_sdfdsf_fx231";
+    const id = parsed.id || "000000007faf0e8e-Pi1";
     const ts = parsed.ts || Date.now();
     this.state = { id, ts };
   }
