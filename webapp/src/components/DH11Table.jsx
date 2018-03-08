@@ -14,15 +14,22 @@ class DH11Table extends React.Component {
     const id = parsed.id || "000000007faf0e8e-Pi1";
     const ts = parsed.ts || Date.now();
     this.state = { id, ts };
+    this.getInfoFromRemote = this.getInfoFromRemote.bind(this);
   }
 
-  async componentDidMount() {
+  async getInfoFromRemote() {
+    this.setState({ ts: Date.now() });
     const { id, ts } = this.state;
     const queryStr = `?id=${id}&ts=${ts}`;
     const res = await axios.get(
       `${LIGHT_LOCAL.URL}${LIGHT_LOCAL.DH11}${queryStr}`
     );
     this.setState({ data: res.data });
+  }
+
+  componentDidMount() {
+    this.getInfoFromRemote();
+    this.interval = setInterval(this.getInfoFromRemote, 5000);
   }
 
   render() {
