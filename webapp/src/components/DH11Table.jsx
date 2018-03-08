@@ -49,7 +49,7 @@ class DH11Table extends React.Component {
       },
       {
         Header: "Temperature",
-        accessor: "info.temperature",
+        accessor: "info.tmperature",
         maxWidth: 100
       },
       {
