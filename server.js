@@ -22,6 +22,7 @@ require("./routes/test")(app);
 require("./routes/classcourse")(app);
 require("./routes/dh11")(app);
 require("./routes/rfid")(app);
+require("./routes/broadcast")(app);
 require("./routes/webapp")(app, request);
 
 app.listen(5000);
