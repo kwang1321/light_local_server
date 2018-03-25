@@ -6,7 +6,7 @@ const Sensor = require("../models/sensor");
 
 module.exports = app => {
   // insert an item.
-  app.post(consts.DH11Domin, (req, res) => {
+  app.post(consts.DH11Domin, async (req, res) => {
     console.log("post dh11services");
     const data = { ...req.body, device_name: "DH11" };
     let sensorModel = new Sensor(data);
@@ -16,15 +16,27 @@ module.exports = app => {
       });
       return;
     }
-    dh11Service.insert(sensorModel, res);
-    remoteService.postToRemote(sensorModel.sensorDBModel);
+
+    dh11Service
+      .insert(sensorModel)
+      .then(result => {
+        res.send(result);
+        // remoteService.postToRemote(sensorModel.sensorDBModel);
+      })
+      .catch(err => res.send(err));
   });
 
   // get item by dh11.id
-  app.get(consts.DH11Domin + ":id", (req, res) => {
+  app.get(consts.DH11Domin + ":id", async (req, res) => {
     let order_id = req.params.id;
     console.log("request order_id : ", order_id);
-    dh11Service.query_by_hashkey(order_id, res);
+    //  Remember that an async function returns a promise!
+    //  No .catch() there will give you an unhandled rejection.
+    const result = await dh11Service.query_by_hashkey(order_id).catch(err => {
+      res.send(err);
+    });
+    if (!result) return;
+    res.send(result);
   });
 
   // get item by dh11.id and start time(yyyy-mm-ddTHH:MM:ss)
@@ -32,8 +44,10 @@ module.exports = app => {
     let order_id = req.params.id;
     console.log("stime", req.params.stime);
     let stime = df.parseDateLocal(req.params.stime).getTime();
-    // console.log("from time stime", df.parseDateLocal(stime).format(df.masks.isoDateTime3));
-    dh11Service.query_by_id_time(order_id, res, stime);
+    dh11Service
+      .query_by_id_time(order_id, stime)
+      .then(result => res.send(result))
+      .catch(err => res.send(err));
   });
 
   // get item by dh11.id and start time(yyyy-mm-ddTHH:MM:ss) and end time
@@ -41,6 +55,9 @@ module.exports = app => {
     let order_id = req.params.id;
     let stime = df.parseDateLocal(req.params.stime).getTime();
     let etime = df.parseDateLocal(req.params.etime).getTime();
-    dh11Service.query_by_id_time(order_id, res, stime, etime);
+    dh11Service
+      .query_by_id_time(order_id, stime, etime)
+      .then(result => res.send(result))
+      .catch(err => res.send(err));
   });
 };
