@@ -1,6 +1,6 @@
 const consts = require("../config/consts");
 
-var PORT = consts.ENV.boradPort;
+var PORT = consts.boradPort;
 var dgram = require("dgram");
 var client = dgram.createSocket("udp4");
 

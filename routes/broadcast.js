@@ -18,8 +18,8 @@ module.exports = app => {
         message,
         0,
         message.length,
-        consts.ENV.boradPort,
-        consts.ENV.broadAddress,
+        consts.boradPort,
+        consts.broadAddress,
         function() {
           console.log("Sent '" + message + "' Action");
           res.send("Sent '" + message + "' Action");
