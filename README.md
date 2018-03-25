@@ -2,25 +2,25 @@
 
 ## Setup & Information
 
-1. install dynamodb locally (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
-2. start dynamodb locally : **java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb**
-3. use command **'node test/local_ddb_test/create-table-Devices_data.js'** to create table named **DevicesData** locally.
-4. use command **npm run start** to start with static mode, use **npm run dev** to start with develop mode(if you modify Server side files, server will restart automatically).
-5. make sure to create **LOC_ENV.js** under config folder. using code:
+1.  install dynamodb locally (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+2.  start dynamodb locally : **java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb**
+3.  use command **'node test/local_ddb_test/create-table-Devices_data.js'** to create table named **DevicesData** locally.
+4.  use command **npm run start** to start with static mode, use **npm run dev** to start with develop mode(if you modify Server side files, server will restart automatically).
+5.  make sure to create **LOC_ENV.js** under config folder. using code:
 
-  ```javascript
-  // if it is a DEVELOP version
-  module.exports = {
-    Release: "DEV"
-  };
-  // if it is a RELEASE version
-  module.exports = {
-    Release: "RELEASE"
-  };
-  ```
+```javascript
+// if it is a DEVELOP version
+module.exports = {
+  Release: "DEV"
+};
+// if it is a RELEASE version
+module.exports = {
+  Release: "RELEASE"
+};
+```
 
-6. the code for client side can be finished in **client** folder.
-7. add your **hosts** file one information as **10.1.15.90 localtest.itu.edu**.
+6.  the code for client side can be finished in **client** folder.
+7.  add your **hosts** file one information as **10.1.15.90 localtest.itu.edu**.
 
 ## Interfaces
 
@@ -53,7 +53,7 @@
   }' | json_pp
   ```
 
-* #### get data from DH11 sensor id, start_time, end_time [_/api/v1/dh11/{device_id}_] [_/api/v1/dh11/{device_id}/{start_time}_] [_/api/v1/dh11/{device_id}/{start_time}/{end_time}_]
+* #### get data from DH11 sensor id, start*time, end_time [*/api/v1/dh11/{device*id}*] [_/api/v1/dh11/{device_id}/{start_time}_][_/api/v1/dh11/{device_id}/{start_time}/{end_time}_]
 
   example:
 
@@ -61,4 +61,13 @@
   curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231" | json_pp
   curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231/2018-02-10" | json_pp
   curl -v -X GET "http://localtest.itu.edu:5000/api/v1/dh11/dh11_xyzpp_sdfdsf_fx231/2018-02-09T23:22:23/2019-02-10T11:22:23" | json_pp
+  ```
+
+* #### Local Server broadcasts _discovery_ and _reset_. [*/api/v1/broadcast/:action*]. _action_ must be _reset_ or _discovery_
+
+  example:
+
+  ```
+  curl http://localtest.itu.edu:5000/api/v1/broadcast/discovery
+  curl http://localtest.itu.edu:5000/api/v1/broadcast/reset
   ```
