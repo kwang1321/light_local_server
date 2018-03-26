@@ -24,6 +24,6 @@ require("./routes/dh11")(app);
 require("./routes/rfid")(app);
 require("./routes/broadcast")(app);
 require("./routes/webapp")(app, request);
-
+require("./routes/error_handle")(app);
 app.listen(5000);
 console.log("Server is running on port 5000");

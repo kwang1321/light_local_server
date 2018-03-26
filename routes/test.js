@@ -20,4 +20,8 @@ module.exports = function(app) {
     console.log("new get");
     res.render("newItem.html");
   });
+
+  app.get("/error", function(req, res) {
+    throw new Error("error!");
+  });
 };
