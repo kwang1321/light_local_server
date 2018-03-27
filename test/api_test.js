@@ -4,11 +4,15 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 chai.use(chaiHttp);
 var app = require("../server").app;
-var server = require("../server").server;
 const should = chai.should();
 const consts = require("../config/consts");
 const expect = chai.expect;
 
+let server;
+before(function(done) {
+  server = app.listen(3000);
+  done();
+});
 //Our parent block
 describe("DH11", () => {
   /*
@@ -55,6 +59,7 @@ describe("DH11", () => {
 });
 
 after(function(done) {
-  // server.close();
+  // console.log("server", server);
+  server.close();
   done();
 });
