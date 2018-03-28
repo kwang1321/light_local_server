@@ -22,7 +22,7 @@ describe("DH11", () => {
     it("it should GET all the items of DH11 000000007faf0e8e-Pi1", done => {
       chai
         .request(app)
-        .get("/api/v1/dh11/000000007faf0e8e-Pi1")
+        .get(consts.DH11Domin + "000000007faf0e8e-Pi1")
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("array");
@@ -37,7 +37,7 @@ describe("DH11", () => {
     it("it should not POST a dh11", done => {
       let dh11 = {
         device_id: "000000007faf0e8e-Pi1",
-        time_stamp: 1522122094168,
+        time_stamp: 1522225289489,
         info: {
           temperature: 80.25,
           humidity: 50.34
@@ -48,8 +48,10 @@ describe("DH11", () => {
         .post(consts.DH11Domin)
         .send(dh11)
         .end((err, res) => {
+          should.not.exist(err);
           res.should.have.status(200);
           res.body.should.be.a("object");
+          res.body.info.should.be.a("object");
           res.body.should.have.property("device_id");
           expect(res.body.device_id).to.equal("000000007faf0e8e-Pi1");
           done();
