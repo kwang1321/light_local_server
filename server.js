@@ -26,9 +26,11 @@ require("./routes/broadcast")(app);
 require("./routes/webapp")(app, request);
 require("./routes/error_handle")(app);
 
-if (!module.parent) {
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+
+if (process.env.NODE_ENV !== "test") {
   app.listen(5000);
-  console.log("Server is running on port 5000");
+  console.log("############ Server is running on port 5000 ############");
 }
 
-module.exports = { app };
+module.exports = app;

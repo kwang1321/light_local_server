@@ -3,7 +3,7 @@ process.env.NODE_ENV = "test"; //Require the dev-dependencies
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 chai.use(chaiHttp);
-var app = require("../server").app;
+var app = require("../server");
 const should = chai.should();
 const consts = require("../config/consts");
 const expect = chai.expect;

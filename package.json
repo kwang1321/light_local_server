@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --timeout 10000",
+    "test": "NODE_ENV=test mocha --timeout 10000",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
