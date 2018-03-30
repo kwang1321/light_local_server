@@ -10,6 +10,15 @@ module.exports = app => {
     res.send({ error: "404 Page Not found" });
   });
 
+  app.use(function(req, res, next) {
+    var l = process.once("unhandledRejection", function(reason, p) {
+      console.log("Unhandled Rejection:", reason.stack);
+      res.status(500).send("Unknown Error");
+      //next(reason);
+    });
+    next();
+    process.removeEventLister("unhandledRejection", l);
+  });
   // error-handling middleware, take the same form
   // as regular middleware, however they require an
   // arity of 4, aka the signature (err, req, res, next).
@@ -24,6 +33,9 @@ module.exports = app => {
 
   // error handler
   app.use(function(err, req, res, next) {
+    if (res.headersSent) {
+      return next(err);
+    }
     res.status(err.status || 500);
     res.send({ ServerError: err });
   });

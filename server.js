@@ -23,14 +23,18 @@ require("./routes/classcourse")(app);
 require("./routes/dh11")(app);
 require("./routes/rfid")(app);
 require("./routes/broadcast")(app);
+require("./routes/end_device")(app);
 require("./routes/webapp")(app, request);
 require("./routes/error_handle")(app);
-
-console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-
-if (process.env.NODE_ENV !== "test") {
-  app.listen(5000);
-  console.log("############ Server is running on port 5000 ############");
+if (!module.parent) {
+  const server = app.listen(process.env.PORT || 5000, function() {
+    console.log(
+      `############ Server is running on port ${
+        server.address().port
+      } ############`
+    );
+  });
 }
 
+// for test
 module.exports = app;

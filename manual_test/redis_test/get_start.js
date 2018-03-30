@@ -38,8 +38,8 @@ const obj = {
 
 client.del("frameworks");
 
-client.hmset("frameworks:1", flatten(obj));
-client.hmset("frameworks:2", flatten(obj));
+client.hmset("frameworks:10.1.15.90", flatten(obj));
+client.hmset("frameworks:10.1.15.91", flatten(obj));
 
 // client.hgetall("frameworks*", function(err, object) {
 //   console.log(unflatten(object));
@@ -62,15 +62,16 @@ async function getAllKeys() {
   console.log("get keys starting...");
   const keys = await getKeysAsync("framework*");
   console.log(keys);
+  client.quit();
 }
 
 async function getKeyInfo() {
   console.log("get info starting...");
-  const res = await getObjFromKeyAsync("frameworks:1").catch(err =>
+  const res = await getObjFromKeyAsync("frameworks:10.1.15.91").catch(err =>
     console.log(err)
   );
   console.log(res);
+  client.quit();
 }
 getAllKeys();
 getKeyInfo();
-client.quit();
