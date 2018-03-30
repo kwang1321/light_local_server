@@ -16,6 +16,6 @@ module.exports = {
   RFIDDomin: PREFIX + "rfid/",
   BroadcastDomin: PREFIX + "broadcast/:action",
   EndDeviceDomin: PREFIX + "enddevice/",
-  REMOTEDomin: `https://wkh47ps425.execute-api.us-west-2.amazonaws.com/lightlocal${PREFIX}dh11/`,
+  REMOTEDomin: `https://wkh47ps425.execute-api.us-west-2.amazonaws.com/lightlocal/api/v1/dh11/`,
   ...ENV
 };

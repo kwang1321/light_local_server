@@ -71,3 +71,29 @@ module.exports = {
   curl http://localtest.itu.edu:5000/api/v1/broadcast/discovery
   curl http://localtest.itu.edu:5000/api/v1/broadcast/reset
   ```
+
+* #### report end-devices address to localserver. [_/api/v1/enddevice_]
+
+  data pattern:
+
+  ```json
+  {
+    "ip": "Ip address of end-device",
+    ["mac"]: "Mac address"
+  }
+  ```
+
+  example:
+
+  ```
+  curl -v -X POST  'http://localtest.itu.edu:5000/api/v1/enddevice'  -H 'content-type: application/json'  -d '{
+  "ip": "127.0.0.6",
+  "mac": "02:42:50:ca:df:1e"
+  }' | json_pp
+  ```
+
+* #### get all the end-devices from localserver. [_/api/v1/enddevice_]
+
+```
+  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/enddevice" | json_pp
+```

@@ -1,6 +1,8 @@
+const redis = require("redis");
+const client = redis.createClient();
 const consts = require("../config/consts");
 const dh11Service = require("../services/sensor_sev");
-const remoteService = require("../services/remote_sev");
+const cacheService = require("../services/cache_sev");
 const df = require("../common/date_format.js");
 const Sensor = require("../models/sensor");
 
@@ -21,7 +23,9 @@ module.exports = app => {
       .insert(sensorModel)
       .then(result => {
         res.send(result);
-        // remoteService.postToRemote(sensorModel.sensorDBModel);
+        cacheService
+          .saveToCache(client, result.sensorDBModel)
+          .catch(err => console.log("save to redis err:", err));
       })
       .catch(err => res.send(err));
   });
