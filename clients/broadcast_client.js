@@ -6,6 +6,8 @@ var client = dgram.createSocket("udp4");
 var ip = require("ip");
 var mac = require("getmac");
 
+const { reboot } = require("./reboot");
+//var resetcmd = require("reboot");
 ip.address();
 var mymacAddress;
 require("getmac").getMac(function(err, macAddress) {
@@ -25,29 +27,37 @@ client.on("message", function(message, rinfo) {
   console.log(
     "Message from: " + rinfo.address + ":" + rinfo.port + " - " + message
   );
+  console.log(message.toString());
 
-  var ipdata = {
-    ip: ip.address(),
-    ["mac"]: mymacAddress
-  };
+  let task = message.toString();
+  if (task === "discovery") {
+    var ipdata = {
+      ip: ip.address(),
+      ["mac"]: mymacAddress
+    };
 
-  const request = require("request");
+    const request = require("request");
 
-  const URL_POST = "http://localtest.itu.edu:5000/api/v1/enddevice";
+    const URL_POST = "http://localtest.itu.edu:5000/api/v1/enddevice";
 
-  request(
-    {
-      url: URL_POST,
-      method: "POST",
-      json: ipdata
-    },
-    function(error, response, data) {
-      if (error) {
-        return console.log(error);
+    request(
+      {
+        url: URL_POST,
+        method: "POST",
+        json: ipdata
+      },
+      function(error, response, data) {
+        if (error) {
+          return console.log(error);
+        }
+        console.log("SUCCEED", data);
       }
-      console.log("SUCCEED", data);
-    }
-  );
+    );
+  }
+  if (task === "reset") {
+    //resetcmd.rebootImmediately();
+    reboot();
+  }
 });
 
 client.bind(PORT);
