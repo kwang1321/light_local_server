@@ -1,15 +1,17 @@
 var sensorLib = require("node-dht-sensor");
 var did = "000000007faf0e8e-Pi1";
-
+console.log("node-dht-sensor");
 sensorLib.initialize(11, 2); //#A
 
 let handle;
 
 const startread = (interval = 3000) => {
-  if (!handle) {
+  if (handle) {
+    console.log("clean handle!");
     clearInterval(handle);
+    handle = null;
   }
-  setInterval(read, interval);
+  handle = setInterval(read, interval);
 };
 
 const read = () => {
@@ -59,13 +61,17 @@ const read = () => {
 };
 
 process.on("SIGINT", function() {
-  clearInterval(interval);
+  if (handle)
+    clearInterval(handle);
   console.log("Bye, bye!");
   process.exit();
 });
 
 if (!handle) {
+  console.log("starting...");
   startread();
+} else {
+  console.log("handle is not null");
 }
 
 module.exports.startread = startread;

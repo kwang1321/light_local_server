@@ -1,5 +1,5 @@
 const consts = require("../config/consts");
-// const { startread } = require("../clients/dht");
+ const { startread } = require("../clients/dht");
 // let handle;
 // = setInterval(function() {
 //   //#B
@@ -12,7 +12,7 @@ module.exports = app => {
     console.log(req.body);
 
     const interval = req.body.interval;
-    // startread(interval);
+     startread(interval);
 
     console.log(interval);
     res.send({ result: interval });
