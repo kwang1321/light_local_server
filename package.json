@@ -9,7 +9,8 @@
   "scripts": {
     "test": "mocha --timeout 10000",
     "start": "node server.js",
-    "dev": "NODE_ENV=dev && nodemon server.js"
+    "dev": "nodemon server.js",
+    "dev2": "nodemon client_server.js"
   },
   "author": "",
   "license": "ISC",

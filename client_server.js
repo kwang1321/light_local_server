@@ -19,18 +19,7 @@ app.use(bodyParser.text());
 app.set("view engine", "ejs");
 
 require("./routes/test")(app);
-console.log(process.env.NODE_ENV);
-
-if (process.env.NODE_ENV === "client") {
-  require("./client_routes/end_device")(app);
-} else {
-  require("./routes/classcourse")(app);
-  require("./routes/dh11")(app);
-  require("./routes/rfid")(app);
-  require("./routes/broadcast")(app);
-  require("./routes/end_device")(app);
-  require("./routes/webapp")(app, request);
-}
+require("./client_routes/end_device")(app);
 require("./routes/error_handle")(app);
 if (!module.parent) {
   const server = app.listen(process.env.PORT || 5000, function() {
