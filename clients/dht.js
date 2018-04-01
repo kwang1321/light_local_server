@@ -2,11 +2,17 @@ var sensorLib = require("node-dht-sensor");
 var did = "000000007faf0e8e-Pi1";
 
 sensorLib.initialize(11, 2); //#A
-var interval = setInterval(function() {
-  //#B
-  read();
-}, 2000);
-function read() {
+
+let handle;
+
+const startread = (interval = 3000) => {
+  if (!handle) {
+    clearInterval(handle);
+  }
+  setInterval(read, interval);
+};
+
+const read = () => {
   var readout = sensorLib.read(); //#C
   var a = Number(readout.temperature.toFixed(2));
   var b = Number(readout.humidity.toFixed(2));
@@ -50,10 +56,16 @@ function read() {
   );
 
   //console.log(data);
-}
+};
 
 process.on("SIGINT", function() {
   clearInterval(interval);
   console.log("Bye, bye!");
   process.exit();
 });
+
+if (!handle) {
+  startread();
+}
+
+module.exports.startread = startread;
