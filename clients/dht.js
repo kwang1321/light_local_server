@@ -1,5 +1,12 @@
 var sensorLib = require("node-dht-sensor");
-var did = "000000007faf0e8e-Pi1";
+var mac = require("getmac");
+var mymacAddress;
+require("getmac").getMac(function(err, macAddress) {
+  mymacAddress = macAddress;
+  if (err) throw err;
+  console.log(macAddress);
+});
+var did = mymacAddress;
 console.log("node-dht-sensor");
 sensorLib.initialize(11, 2); //#A
 
@@ -61,8 +68,7 @@ const read = () => {
 };
 
 process.on("SIGINT", function() {
-  if (handle)
-    clearInterval(handle);
+  if (handle) clearInterval(handle);
   console.log("Bye, bye!");
   process.exit();
 });
