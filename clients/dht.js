@@ -38,16 +38,6 @@ const read = () => {
     }
   };
   const request = require("request");
-
-  //const URL_GET = 'https://kgng8eutc9.execute-api.us-west-2.amazonaws.com/orders/new';
-
-  // 1. GET request
-  // request(URL_GET, (err, res, body) => {
-  //   if (err) { return console.log(err); }
-  //   console.log(body);
-  // });
-
-  // 2. PUT request (the same as post)
   const URL_POST = "http://localtest.itu.edu:5000/api/v1/dh11";
 
   request(
