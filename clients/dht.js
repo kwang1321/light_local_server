@@ -6,7 +6,7 @@ require("getmac").getMac(function(err, macAddress) {
   if (err) throw err;
   console.log(macAddress);
 });
-var did = mymacAddress;
+//var did = mymacAddress;
 console.log("node-dht-sensor");
 sensorLib.initialize(11, 2); //#A
 
@@ -30,7 +30,7 @@ const read = () => {
   var time = Date.now();
 
   var data = {
-    device_id: did,
+    device_id: mymacAddress,
     time_stamp: time,
     info: {
       tmperature: a,
