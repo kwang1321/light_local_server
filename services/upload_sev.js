@@ -10,7 +10,7 @@ const postToRemote = async (filter = "") => {
   if (!keys || keys.length === 0) {
     return { keys, data };
   }
-  const res = await axios.post(REMOTEDomin, data);
+  const res = await axios.post(REMOTEDomin, data.slice(0, 1));
   return { keys, data: res.data };
 };
 
