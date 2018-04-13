@@ -86,6 +86,8 @@ file:///home/gqq/MyProjects/nodejs/aws_lambda/queries/query_by_partition.json \
 * Some useful CLI commands **Describe Table**, **Table Count**
 
 ```
+aws configure
+
 aws dynamodb describe-table --table-name DevicesData --endpoint-url http://localhost:8000
 
 aws dynamodb scan --table-name DevicesData --select "COUNT" --endpoint-url http://localhost:8000
