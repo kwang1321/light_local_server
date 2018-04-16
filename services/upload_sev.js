@@ -1,7 +1,7 @@
 const redis = require("redis");
 const client = redis.createClient();
 const Repeat = require("repeat");
-const { REMOTEDomin } = require("../config/consts");
+const { REMOTEDomin, uploadInteval } = require("../config/consts");
 const axios = require("axios");
 const cacheService = require("./cache_sev");
 
@@ -35,7 +35,7 @@ const postToRemote = async (filter = "") => {
 
   const { uploadData } = doFilter(keys, data);
 
-  // console.log("uploadData", uploadData);
+  console.log("uploadData data to cloud, filtered data length is ", uploadData.length);
 
   const res = await axios.post(REMOTEDomin, uploadData);
   return { keys, data: res.data, length: uploadData.length };
@@ -73,8 +73,9 @@ function doPost() {
     });
 }
 if (!module.parent) {
+  console.log(`*** upload starting, interval is ${uploadInteval} ***`);
   Repeat(doPost)
-    .every(3, "s")
+    .every(uploadInteval, "s")
     .start.now();
 }
 
