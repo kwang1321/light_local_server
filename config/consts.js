@@ -10,6 +10,20 @@ if (LOC_ENV.Release === "RELEASE") {
   ENV = require("./dev.js");
 }
 
+/**
+ * end_device sensor config
+ */
+const EndDeviceSensorCfg = [
+  {
+    end_device_id: "test_pi_loc1",
+    sensors: ["testid:cc:3d:82:52:81:31", "testid_3"]
+  },
+  {
+    end_device_id: "test_pi_loc2",
+    sensors: ["testid_2"]
+  }
+];
+
 module.exports = {
   EPOCH: 1300000000000,
   ClassCourseDomin: PREFIX + "iotclass/",
@@ -19,5 +33,6 @@ module.exports = {
   EndDeviceDomin: PREFIX + "enddevice/",
   REMOTEDomin: `https://wkh47ps425.execute-api.us-west-2.amazonaws.com/lightlocal/api/v1/dh11/`,
   ClientEndDeviceDomin: CLIENT_PREFIX + "enddevice/",
+  EndDeviceSensorCfg,
   ...ENV
 };

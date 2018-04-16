@@ -12,9 +12,11 @@ module.exports = app => {
   // insert an item.
   app.post(consts.EndDeviceDomin, (req, res) => {
     const { body } = req;
-    if (!body || !body.ip) {
+    if (!body || !body.ip || !body.end_device_id) {
       res.status(400);
-      res.send("body can not be null, body.ip can not be null");
+      res.send(
+        "body can not be null, body.ip and body.end_device_id can not be null"
+      );
       return;
     }
     service
