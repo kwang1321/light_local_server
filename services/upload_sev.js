@@ -35,7 +35,7 @@ const postToRemote = async (filter = "") => {
 
   const { uploadData } = doFilter(keys, data);
 
-  console.log("uploadData", uploadData);
+  // console.log("uploadData", uploadData);
 
   const res = await axios.post(REMOTEDomin, uploadData);
   return { keys, data: res.data, length: uploadData.length };
