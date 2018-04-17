@@ -17,7 +17,7 @@ describe("End Devices Redis", () => {
   describe("end_device service -> saveToTable", () => {
     it("it should save an endvice info into redis through POST", done => {
       let address = {
-        end_device_id: "test_pi_loc1",
+        end_device_id: "cc_3d_82_52_81_31",
         ip: "127.0.0.1"
       };
       chai
@@ -32,9 +32,9 @@ describe("End Devices Redis", () => {
           expect(res.body.result).to.equal("OK");
         });
       address = {
-        end_device_id: "test_pi_loc2",
+        end_device_id: "cd_3d_82_52_ef_00",
         ip: "127.0.0.2",
-        mac: "xxdfdsf-dsfwevx-sfd"
+        mac: "cd_3d_82_52_ef_00"
       };
       chai
         .request(app)

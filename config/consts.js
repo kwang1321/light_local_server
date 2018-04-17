@@ -15,12 +15,12 @@ if (LOC_ENV.Release === "RELEASE") {
  */
 const EndDeviceSensorCfg = [
   {
-    end_device_id: "test_pi_loc1",
-    sensors: ["testid:cc:3d:82:52:81:31", "testid_3"]
+    end_device_id: "cc_3d_82_52_81_31",
+    sensors: ["testid_0000_tmp_hum", "testid_0003_tmp_hum"]
   },
   {
-    end_device_id: "test_pi_loc2",
-    sensors: ["testid_2"]
+    end_device_id: "cd_3d_82_52_ef_00",
+    sensors: ["testid_0002_current"]
   }
 ];
 
