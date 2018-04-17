@@ -30,14 +30,29 @@ class Sensor {
     };
   }
 
+  /**
+   * get end device information from EndDeviceSensorCfg
+   */
   async getEndDevice() {
+    if (
+      this.end_device &&
+      this.end_device.end_device_id &&
+      this.end_device.end_device_id !== "unknown"
+    ) {
+      return;
+    }
+
     let idx = _.findIndex(EndDeviceSensorCfg, x =>
       x.sensors.includes(this.device_id)
     );
-    console.log("idx is ", idx);
 
+    const unknown = { ip: "unknown", end_device_id: "unknown" };
     if (idx === -1) {
-      let unknown = { ip: "unknown", end_device_id: "unknown" };
+      console.error(
+        `The end_device of ${
+          this.device_id
+        } is not in Config, please check the config file!`
+      );
       this.end_device = unknown;
       this.sensorDBModel.end_device = unknown;
       return;
@@ -46,6 +61,16 @@ class Sensor {
       client,
       EndDeviceSensorCfg[idx].end_device_id
     );
+    if (!end_device) {
+      console.error(
+        `The end_device of ${
+          this.device_id
+        } is not in Redis, please check the config file or do broadcasting`
+      );
+      this.end_device = unknown;
+      this.sensorDBModel.end_device = unknown;
+      return;
+    }
     this.end_device = end_device;
     this.sensorDBModel.end_device = end_device;
   }

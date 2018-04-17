@@ -17,7 +17,7 @@ describe("End Devices Redis", () => {
   describe("end_device service -> saveToTable", () => {
     it("it should save an endvice info into redis through POST", done => {
       let address = {
-        end_device_id: "127.0.0.1",
+        end_device_id: "test_pi_loc1",
         ip: "127.0.0.1"
       };
       chai
@@ -32,7 +32,7 @@ describe("End Devices Redis", () => {
           expect(res.body.result).to.equal("OK");
         });
       address = {
-        end_device_id: "127.0.0.2",
+        end_device_id: "test_pi_loc2",
         ip: "127.0.0.2",
         mac: "xxdfdsf-dsfwevx-sfd"
       };
@@ -48,7 +48,7 @@ describe("End Devices Redis", () => {
           expect(res.body.result).to.equal("OK");
         });
       address = {
-        end_device_id: "127.0.0.3",
+        end_device_id: "test_pi_loc3",
         ip: "127.0.0.3",
         mac: "xxdfdsf-dsfwevx-sfd-sdfdsf",
         name: "slave1"
@@ -64,6 +64,24 @@ describe("End Devices Redis", () => {
           res.body.result.should.be.a("string");
           expect(res.body.result).to.equal("OK");
         });
+
+      address = {
+        ip: "127.0.0.4",
+        mac: "xxdfdsf-dsfwevx-sfd-sdfdsf",
+        name: "slave1"
+      };
+      chai
+        .request(app)
+        .post(consts.EndDeviceDomin)
+        .send(address)
+        .end((err, res) => {
+          should.not.exist(err);
+          res.should.have.status(400);
+          should.exist(res.error);
+          expect(res.error.text).to.equal(
+            "body can not be null, body.ip and body.end_device_id can not be null"
+          );
+        });
       done();
     });
   });
@@ -77,6 +95,7 @@ describe("End Devices Redis", () => {
           res.should.have.status(200);
           res.body.should.be.a("array");
           res.body.should.all.have.property("ip");
+          res.body.should.all.have.property("end_device_id");
           done();
         });
     });

@@ -87,6 +87,7 @@ module.exports = {
 
   ```
   curl -v -X POST  'http://localtest.itu.edu:5000/api/v1/enddevice'  -H 'content-type: application/json'  -d '{
+  "end_device_id": "02:42:50:ca:df:1e",
   "ip": "127.0.0.6",
   "mac": "02:42:50:ca:df:1e"
   }' | json_pp

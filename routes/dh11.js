@@ -19,7 +19,6 @@ module.exports = app => {
       return;
     }
 
-    await sensorModel.getEndDevice();
     dh11Service
       .insert(sensorModel)
       .then(result => {

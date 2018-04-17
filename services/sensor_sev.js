@@ -34,6 +34,8 @@ let doQuery = params => {
 
 const SensorSev = {
   insert: async sensorModel => {
+    await sensorModel.getEndDevice();
+
     var params = {
       TableName: Sensor.get_table_name(),
       Item: sensorModel.sensorDBModel,

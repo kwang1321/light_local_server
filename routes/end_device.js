@@ -19,8 +19,12 @@ module.exports = app => {
       );
       return;
     }
+    const info = {
+      ...body,
+      end_device_id: body.end_device_id.split(":").join("_")
+    };
     service
-      .saveToTable(client, body)
+      .saveToTable(client, info)
       .then(info => res.send({ result: info }))
       .catch(err => {
         errorHandler(err, res);
