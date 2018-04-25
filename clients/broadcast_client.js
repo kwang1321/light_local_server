@@ -3,18 +3,19 @@ const consts = require("../config/consts");
 var PORT = consts.boradPort;
 var dgram = require("dgram");
 var client = dgram.createSocket("udp4");
-var ip = require("ip");
-var mac = require("getmac");
+const getSensorInfo = require("./end_device_info");
+// var ip = require("ip");
+// var mac = require("getmac");
 
 const { reboot } = require("./reboot");
 //var resetcmd = require("reboot");
-ip.address();
-var mymacAddress;
-require("getmac").getMac(function(err, macAddress) {
-  mymacAddress = macAddress;
-  if (err) throw err;
-  console.log(macAddress);
-});
+// ip.address();
+// var mymacAddress;
+// require("getmac").getMac(function(err, macAddress) {
+//   mymacAddress = macAddress;
+//   if (err) throw err;
+//   console.log(macAddress);
+// });
 client.on("listening", function() {
   var address = client.address();
   console.log(
@@ -31,10 +32,12 @@ client.on("message", function(message, rinfo) {
 
   let task = message.toString();
   if (task === "discovery") {
-    var ipdata = {
-      ip: ip.address(),
-      ["mac"]: mymacAddress
-    };
+    // var ipdata = {
+    //   ip: ip.address(),
+    //   ["mac"]: mymacAddress
+    // };
+
+    let ipdata = getSensorInfo();
 
     const request = require("request");
 
