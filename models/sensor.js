@@ -41,38 +41,38 @@ class Sensor {
     ) {
       return;
     }
-
-    let idx = _.findIndex(EndDeviceSensorCfg, x =>
-      x.sensors.includes(this.device_id)
-    );
-
+    // let idx = _.findIndex(EndDeviceSensorCfg, x =>
+    //   x.sensors.includes(this.device_id)
+    // );
     const unknown = { ip: "unknown", end_device_id: "unknown" };
-    if (idx === -1) {
-      console.error(
-        `The end_device of ${
-          this.device_id
-        } is not in Config, please check the config file!`
-      );
-      this.end_device = unknown;
-      this.sensorDBModel.end_device = unknown;
-      return;
-    }
-    const end_device = await service.getEndDevice(
-      client,
-      EndDeviceSensorCfg[idx].end_device_id
-    );
-    if (!end_device) {
-      console.error(
-        `The end_device of ${
-          this.device_id
-        } is not in Redis, please check the config file or do broadcasting`
-      );
-      this.end_device = unknown;
-      this.sensorDBModel.end_device = unknown;
-      return;
-    }
-    this.end_device = end_device;
-    this.sensorDBModel.end_device = end_device;
+    this.end_device = unknown;
+    this.sensorDBModel.end_device = unknown;
+    // if (idx === -1) {
+    //   console.error(
+    //     `The end_device of ${
+    //       this.device_id
+    //     } is not in Config, please check the config file!`
+    //   );
+    //   this.end_device = unknown;
+    //   this.sensorDBModel.end_device = unknown;
+    //   return;
+    // }
+    // const end_device = await service.getEndDevice(
+    //   client,
+    //   EndDeviceSensorCfg[idx].end_device_id
+    // );
+    // if (!end_device) {
+    //   console.error(
+    //     `The end_device of ${
+    //       this.device_id
+    //     } is not in Redis, please check the config file or do broadcasting`
+    //   );
+    //   this.end_device = unknown;
+    //   this.sensorDBModel.end_device = unknown;
+    //   return;
+    // }
+    // this.end_device = end_device;
+    // this.sensorDBModel.end_device = end_device;
   }
 
   check() {

@@ -2,27 +2,31 @@ const redis = require("redis");
 const client = redis.createClient();
 const consts = require("../config/consts");
 const service = require("../services/end_device");
+const flatten = require("flat");
 
 const errorHandler = (err, res) => {
   res.status(500);
   res.send(err);
 };
 
-module.exports = app => {
+module.exports = function(app) {
   // insert an item.
   app.post(consts.EndDeviceDomin, (req, res) => {
     const { body } = req;
-    if (!body || !body.ip || !body.end_device_id) {
+    // console.log("body", body);
+
+    if (!body || !body.ip || !body.eid) {
       res.status(400);
-      res.send(
-        "body can not be null, body.ip and body.end_device_id can not be null"
-      );
+      res.send("body can not be null, body.ip and body.eid can not be null");
       return;
     }
-    const info = {
+    const info = flatten({
       ...body,
-      end_device_id: body.end_device_id.split(":").join("_")
-    };
+      eid: body.eid.split(":").join("_")
+    });
+
+    // console.log("info", info);
+
     service
       .saveToTable(client, info)
       .then(info => res.send({ result: info }))

@@ -15,10 +15,14 @@ describe("End Devices Redis", () => {
   * Test the /GET route
   */
   describe("end_device service -> saveToTable", () => {
-    it("it should save an endvice info into redis through POST", done => {
+    it("save end_device", done => {
       let address = {
-        end_device_id: "cc_3d_82_52_81_31",
-        ip: "127.0.0.1"
+        eid: "cc:3d:82:52:81:31",
+        ip: "127.0.0.1",
+        sensors: [
+          { id: "testid_0000_tmp_hum", interval: 5000 },
+          { id: "testid_0002_current", interval: 5000 }
+        ]
       };
       chai
         .request(app)
@@ -32,9 +36,13 @@ describe("End Devices Redis", () => {
           expect(res.body.result).to.equal("OK");
         });
       address = {
-        end_device_id: "cd_3d_82_52_ef_00",
+        eid: "cd:3d:82:52:ef:00",
         ip: "127.0.0.2",
-        mac: "cd_3d_82_52_ef_00"
+        mac: "cd:3d:82:52:ef:00",
+        sensors: [
+          { id: "testid_0000_tmp_hum2", interval: 5000 },
+          { id: "testid_0002_current2", interval: 5000 }
+        ]
       };
       chai
         .request(app)
@@ -48,10 +56,14 @@ describe("End Devices Redis", () => {
           expect(res.body.result).to.equal("OK");
         });
       address = {
-        end_device_id: "test_pi_loc3",
+        eid: "test_pi_loc3",
         ip: "127.0.0.3",
         mac: "xxdfdsf-dsfwevx-sfd-sdfdsf",
-        name: "slave1"
+        name: "slave1",
+        sensors: [
+          { id: "testid_0000_tmp_hum3", interval: 5000 },
+          { id: "testid_0002_current3", interval: 5000 }
+        ]
       };
       chai
         .request(app)
@@ -68,7 +80,11 @@ describe("End Devices Redis", () => {
       address = {
         ip: "127.0.0.4",
         mac: "xxdfdsf-dsfwevx-sfd-sdfdsf",
-        name: "slave1"
+        name: "slave1",
+        sensors: [
+          { id: "testid_0000_tmp_hum4", interval: 5000 },
+          { id: "testid_0002_current4", interval: 5000 }
+        ]
       };
       chai
         .request(app)
@@ -79,7 +95,7 @@ describe("End Devices Redis", () => {
           res.should.have.status(400);
           should.exist(res.error);
           expect(res.error.text).to.equal(
-            "body can not be null, body.ip and body.end_device_id can not be null"
+            "body can not be null, body.ip and body.eid can not be null"
           );
         });
       done();
@@ -94,8 +110,16 @@ describe("End Devices Redis", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("array");
+          console.log("body", res.body);
+
           res.body.should.all.have.property("ip");
-          res.body.should.all.have.property("end_device_id");
+          res.body.should.all.have.property("eid");
+          res.body.should.all.have.property("sensors");
+          for (const ed of res.body) {
+            for (const sensor of ed.sensors) {
+              console.log("sensor id", sensor.id);
+            }
+          }
           done();
         });
     });

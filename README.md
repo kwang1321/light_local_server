@@ -78,9 +78,9 @@ module.exports = {
 
   ```json
   {
-    "end_device_id": "id of end device",
+    "eid": "id of end device",
     "ip": "Ip address of end-device",
-    ["mac"]: "Mac address"
+    "[id:xxx, interval: number]"
   }
   ```
 
