@@ -30,7 +30,7 @@ const read = () => {
   var time = Date.now();
 
   var data = {
-    device_id: mymacAddress,
+    device_id: "dht_000000",
     time_stamp: time,
     info: {
       tmperature: a,
