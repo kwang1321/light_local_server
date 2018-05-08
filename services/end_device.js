@@ -27,15 +27,6 @@ const getAllEndDevices = async client => {
   for (const key of keys) {
     res.push(await getEndDevice(client, key.split(":")[1]));
   }
-
-  // for (let i = 0; i < keys.length; i++) {
-  //   let resi = await getEndDevice(client, keys[i].split(":")[1]);
-  //   console.log("resi", resi);
-  //   res[i] = resi;
-  // }
-  // console.log("getAllEndDevices res", res);
-  // console.log(res[0].sensors[0].id);
-
   return res;
 };
 

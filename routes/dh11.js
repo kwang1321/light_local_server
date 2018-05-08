@@ -21,10 +21,11 @@ module.exports = app => {
 
     dh11Service
       .insert(sensorModel)
-      .then(result => {
+      .then(async result => {
         res.send(result);
+        let dbModel = await result.getSensorDBModel();
         cacheService
-          .saveToCache(client, result.sensorDBModel)
+          .saveToCache(client, dbModel)
           .catch(err => console.log("save to redis err:", err));
       })
       .catch(err => res.send(err));

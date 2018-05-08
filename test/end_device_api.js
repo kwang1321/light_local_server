@@ -110,16 +110,17 @@ describe("End Devices Redis", () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("array");
-          console.log("body", res.body);
 
           res.body.should.all.have.property("ip");
           res.body.should.all.have.property("eid");
           res.body.should.all.have.property("sensors");
-          for (const ed of res.body) {
-            for (const sensor of ed.sensors) {
-              console.log("sensor id", sensor.id);
-            }
+
+          // sensors should have property id and interval
+          for (const info of res.body) {
+            info.sensors.should.all.have.property("id");
+            info.sensors.should.all.have.property("interval");
           }
+
           done();
         });
     });

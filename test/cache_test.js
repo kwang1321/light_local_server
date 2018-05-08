@@ -24,14 +24,10 @@ describe("Cache Test", () => {
         info: { temperature: 25, humidity: 36.2 }
       };
       const sensor1 = new Sensor(data1);
-      sensor1.getEndDevice().then(() => {
-        // console.log("sensor.sensorDBModel", sensor1.sensorDBModel);
-        // expect(sensor1.sensorDBModel.end_device.end_device_id).to.equal(
-        //   "cc_3d_82_52_81_31"
-        // );
-        // expect(sensor1.sensorDBModel.end_device.ip).to.equal("127.0.0.1");
+      sensor1.getEndDevice().then(async () => {
+        const dbModel = await sensor1.getSensorDBModel();
         service
-          .saveToCache(client, sensor1.sensorDBModel)
+          .saveToCache(client, dbModel)
           .then(res => expect(res).to.equal("OK"))
           .catch(err => console.log(err));
       });
@@ -44,12 +40,10 @@ describe("Cache Test", () => {
         info: { temperature: 25, humidity: 36.2 }
       };
       const sensor2 = new Sensor(data2);
-      sensor2.getEndDevice().then(() => {
-        // expect(sensor2.sensorDBModel.end_device.end_device_id).to.equal(
-        //   "cc_3d_82_52_81_31"
-        // );
+      sensor2.getEndDevice().then(async () => {
+        const dbModel = await sensor2.getSensorDBModel();
         service
-          .saveToCache(client, sensor2.sensorDBModel)
+          .saveToCache(client, dbModel)
           .then(res => expect(res).to.equal("OK"))
           .catch(err => console.log(err));
       });
@@ -62,12 +56,10 @@ describe("Cache Test", () => {
         info: { temperature: 25, humidity: 36.2 }
       };
       const sensor3 = new Sensor(data3);
-      sensor3.getEndDevice().then(() => {
-        // expect(sensor3.sensorDBModel.end_device.end_device_id).to.equal(
-        //   "cd_3d_82_52_ef_00"
-        // );
+      sensor3.getEndDevice().then(async () => {
+        const dbModel = await sensor3.getSensorDBModel();
         service
-          .saveToCache(client, sensor3.sensorDBModel)
+          .saveToCache(client, dbModel)
           .then(res => expect(res).to.equal("OK"))
           .catch(err => console.log(err));
       });
@@ -80,12 +72,13 @@ describe("Cache Test", () => {
         info: { temperature: 25, humidity: 36.2 }
       };
       const sensor4 = new Sensor(data4);
-      sensor4.getEndDevice().then(() =>
+      sensor4.getEndDevice().then(async () => {
+        const dbModel = await sensor4.getSensorDBModel();
         service
-          .saveToCache(client, sensor4.sensorDBModel)
+          .saveToCache(client, dbModel)
           .then(res => expect(res).to.equal("OK"))
-          .catch(err => console.log(err))
-      );
+          .catch(err => console.log(err));
+      });
 
       // 5. testid_0001_tmp_hum
       const data5 = {
@@ -95,16 +88,13 @@ describe("Cache Test", () => {
         info: { temperature: 25, humidity: 36.2 }
       };
       const sensor5 = new Sensor(data5);
-      sensor5.getEndDevice().then(() => {
-        // expect(sensor5.sensorDBModel.end_device.end_device_id).to.equal(
-        //   "unknown"
-        // );
+      sensor5.getEndDevice().then(async () => {
+        const dbModel = await sensor5.getSensorDBModel();
         service
-          .saveToCache(client, sensor5.sensorDBModel)
+          .saveToCache(client, dbModel)
           .then(res => expect(res).to.equal("OK"))
           .catch(err => console.log(err));
       });
-      // console.log("res", res);
       done();
     });
   });

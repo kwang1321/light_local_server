@@ -18,27 +18,15 @@ let doQuery = params => {
       }
     });
   });
-  // DDB.docClient.query(params, function(err, data) {
-  //   if (err) {
-  //     res.send({ error: "Error:" + JSON.stringify(err, null, 2) });
-  //   } else {
-  //     let result = [];
-  //     for (let item of data.Items) {
-  //       result.push(new Sensor(item));
-  //     }
-  //     result.sort((r1, r2) => r2.time_stamp - r1.time_stamp);
-  //     res.send(result);
-  //   }
-  // });
 };
 
 const SensorSev = {
   insert: async sensorModel => {
-    await sensorModel.getEndDevice();
+    const dbModel = await sensorModel.getSensorDBModel();
 
     var params = {
       TableName: Sensor.get_table_name(),
-      Item: sensorModel.sensorDBModel,
+      Item: dbModel,
       ReturnValues: DDB.returnType.ALL_OLD
     };
 
@@ -48,10 +36,7 @@ const SensorSev = {
           if (err) {
             reject(err);
           } else {
-            console.log(
-              "great success: ",
-              JSON.stringify(sensorModel.sensorDBModel, null, 2)
-            );
+            console.log("great success: ", JSON.stringify(dbModel, null, 2));
             resolve(sensorModel);
           }
         });

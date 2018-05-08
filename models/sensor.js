@@ -1,7 +1,6 @@
 const df = require("../common/date_format.js");
-const { EndDeviceSensorCfg } = require("../config/consts");
 const _ = require("lodash");
-const service = require("../services/end_device");
+const end_device_service = require("../services/end_device");
 const redis = require("redis");
 const client = redis.createClient();
 
@@ -16,12 +15,11 @@ class Sensor {
     let dat = new Date(this.time_stamp);
     this.datetime_format = dat.format(df.masks.isoDateTime4);
     this.info = data.info;
-    if (data.end_device) {
-      this.end_device = data.end_device;
-    } else {
-      this.end_device = { ip: "unknown", end_device_id: "unknown" };
-    }
-    this.sensorDBModel = {
+  }
+
+  async getSensorDBModel() {
+    await this.getEndDevice();
+    return {
       device_id: this.device_id,
       device_name: this.device_name,
       time_stamp: this.time_stamp,
@@ -31,7 +29,7 @@ class Sensor {
   }
 
   /**
-   * get end device information from EndDeviceSensorCfg
+   * get end device information from Redis
    */
   async getEndDevice() {
     if (
@@ -41,38 +39,26 @@ class Sensor {
     ) {
       return;
     }
-    // let idx = _.findIndex(EndDeviceSensorCfg, x =>
-    //   x.sensors.includes(this.device_id)
-    // );
-    const unknown = { ip: "unknown", end_device_id: "unknown" };
-    this.end_device = unknown;
-    this.sensorDBModel.end_device = unknown;
-    // if (idx === -1) {
-    //   console.error(
-    //     `The end_device of ${
-    //       this.device_id
-    //     } is not in Config, please check the config file!`
-    //   );
-    //   this.end_device = unknown;
-    //   this.sensorDBModel.end_device = unknown;
-    //   return;
-    // }
-    // const end_device = await service.getEndDevice(
-    //   client,
-    //   EndDeviceSensorCfg[idx].end_device_id
-    // );
-    // if (!end_device) {
-    //   console.error(
-    //     `The end_device of ${
-    //       this.device_id
-    //     } is not in Redis, please check the config file or do broadcasting`
-    //   );
-    //   this.end_device = unknown;
-    //   this.sensorDBModel.end_device = unknown;
-    //   return;
-    // }
-    // this.end_device = end_device;
-    // this.sensorDBModel.end_device = end_device;
+
+    try {
+      const endDevices = await end_device_service.getAllEndDevices(client);
+      const thisEndDevice = _.filter(endDevices, end_device =>
+        _.some(end_device.sensors, { id: this.device_id })
+      );
+      if (!thisEndDevice || thisEndDevice.length === 0) {
+        this.end_device = { ip: "unknown", end_device_id: "unknown" };
+      } else if (thisEndDevice.length === 1) {
+        this.end_device = {
+          ip: thisEndDevice[0].ip,
+          end_device_id: thisEndDevice[0].eid
+        };
+      } else {
+        this.end_device = { ip: "cnf error", end_device_id: "cnf error" };
+      }
+    } catch (error) {
+      console.log("error during getAllEndDevices", error);
+      this.end_device = { ip: "cache error", end_device_id: "cache error" };
+    }
   }
 
   check() {
