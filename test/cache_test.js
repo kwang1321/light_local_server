@@ -10,12 +10,12 @@ const redis = require("redis");
 const client = redis.createClient();
 const Sensor = require("../models/sensor");
 
-describe("Cache Test", () => {
+describe("Redis Cache Test", () => {
   /*
   * Test the /GET route
   */
-  describe("cache service -> saveToTable", () => {
-    it("it should save an obj into cache", done => {
+  describe("cache service -> Save device information into Redis", () => {
+    it("it should save device information into Redis", done => {
       // 1. test id testid_0000_tmp_hum
       const data1 = {
         device_id: "testid_0000_tmp_hum",
@@ -99,8 +99,8 @@ describe("Cache Test", () => {
     });
   });
 
-  describe("cache service -> loadOneFromCache", () => {
-    it("it should get one data from cache", done => {
+  describe("cache service -> Get one sensor information from Redis", () => {
+    it("it should get one sensor information from Redis", done => {
       service
         .loadOneFromCache(client, "sensor:testid_0000_tmp_hum:6666")
         .then(res => {
@@ -116,8 +116,8 @@ describe("Cache Test", () => {
     });
   });
 
-  describe("cache service -> loadFromCache", () => {
-    it("it should get all data from cache", done => {
+  describe("cache service -> Get all Test Devices Data from Redis", () => {
+    it("it should get all Test Devices Data from Redis", done => {
       service
         .loadFromCache(client, "testid")
         .then(res => {
@@ -127,8 +127,8 @@ describe("Cache Test", () => {
           res.data[0].should.have.property("time_stamp");
           res.data[0].should.have.property("device_name");
           res.data[0].should.have.property("info");
-          expect(res.data.length).to.equal(5);
-          expect(res.keys.length).to.equal(5);
+          expect(res.data.length).to.equal(6);
+          expect(res.keys.length).to.equal(6);
           done();
         })
         .catch(err => {
@@ -137,8 +137,8 @@ describe("Cache Test", () => {
     });
   });
 
-  describe("upload service -> postToRemote", () => {
-    it("it should post cache data to remote", done => {
+  describe("upload service -> Post Test Devices Data to remote", () => {
+    it("it should post Test Devices Data to remote", done => {
       uploadService
         .postToRemote("testid")
         .then(res => {
@@ -158,7 +158,7 @@ describe("Cache Test", () => {
   });
 
   // describe("cache service -> delFromCache", () => {
-  //   it("it should delete all data from cache", done => {
+  //   it("it should delete all data from Redis", done => {
   //     service
   //       .delFromCache(client, "testid")
   //       .then(res => {

@@ -15,6 +15,9 @@ class Sensor {
     let dat = new Date(this.time_stamp);
     this.datetime_format = dat.format(df.masks.isoDateTime4);
     this.info = data.info;
+    if (data.end_device) {
+      this.end_device = data.end_device;
+    }
   }
 
   async getSensorDBModel() {

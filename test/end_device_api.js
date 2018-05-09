@@ -10,12 +10,12 @@ const client = redis.createClient();
 chai.use(require("chai-http"));
 chai.use(require("chai-things"));
 
-describe("End Devices Redis", () => {
+describe("End Devices", () => {
   /*
   * Test the /GET route
   */
-  describe("end_device service -> saveToTable", () => {
-    it("save end_device", done => {
+  describe("end_device service -> save end devices information into Redis", () => {
+    it("it should save end devices information into Redis", done => {
       let address = {
         eid: "cc:3d:82:52:81:31",
         ip: "127.0.0.1",
@@ -102,7 +102,7 @@ describe("End Devices Redis", () => {
     });
   });
 
-  describe("end_device service -> getAllEndDevices", () => {
+  describe("end_device service -> get all end devices", () => {
     it("it should get all end devices", done => {
       chai
         .request(app)
