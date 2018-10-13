@@ -3,21 +3,31 @@
 ## Setup & Information
 
 1.  install dynamodb locally (https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
-2.  start dynamodb locally : **java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb**
-3.  use command **'node test/local_ddb_test/create-table-Devices_data.js'** to create table named **DevicesData** locally.
+2.  enter **dynamodb\_local_latest** directionary and start dynamodb locally :
+```
+java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+```
+3. enter **light\_local_server** dictionary, run command  
+
+	```
+	npm install
+	node manual_test/local_ddb_test/create-table-Devices_data.js
+	```
+to create table named **DevicesData** locally.
+
 4.  use command **npm run start** to start with static mode, use **npm run dev** to start with develop mode(if you modify Server side files, server will restart automatically).
 5.  make sure to create **LOC_ENV.js** under config folder. using code:
 
-```javascript
-// if it is a DEVELOP version
-module.exports = {
-  Release: "DEV"
-};
-// if it is a RELEASE version
-module.exports = {
-  Release: "RELEASE"
-};
-```
+	```javascript
+	// if it is a DEVELOP version
+	module.exports = {
+	  Release: "DEV"
+	};
+	// if it is a RELEASE version
+	module.exports = {
+	  Release: "RELEASE"
+	};
+	```
 
 6.  the code for client side can be finished in **client** folder.
 7.  add your **hosts** file one information as **10.1.15.90 localtest.itu.edu**.
@@ -96,6 +106,6 @@ module.exports = {
 
 * #### get all the end-devices from localserver. [_/api/v1/enddevice_]
 
-```
-  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/enddevice" | json_pp
-```
+	```
+	  curl -v -X GET "http://localtest.itu.edu:5000/api/v1/enddevice" | json_pp
+	```
