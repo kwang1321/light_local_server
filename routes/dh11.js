@@ -9,8 +9,11 @@ const Sensor = require("../models/sensor");
 module.exports = app => {
   // insert an item.
   app.post(consts.DH11Domin, async (req, res) => {
-    console.log("post dh11services");
-    const data = { ...req.body, device_name: "DH11" };
+    console.log("post dh11services", req.body);
+    let data = req.body;
+    if (!data.device_name) {
+      data.device_name = "DH11";
+    }
     let sensorModel = new Sensor(data);
     if (!sensorModel.check()) {
       res.send({
