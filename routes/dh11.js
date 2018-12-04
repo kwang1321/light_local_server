@@ -31,7 +31,10 @@ module.exports = app => {
           .saveToCache(client, dbModel)
           .catch(err => console.log("save to redis err:", err));
       })
-      .catch(err => res.send(err));
+      .catch(err => {
+        console.log("dh11Service insert err = ", err);
+        res.send(err)
+      });
   });
 
   // get item by dh11.id

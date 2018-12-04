@@ -34,6 +34,7 @@ const SensorSev = {
       try {
         DDB.docClient.put(params, function(err, data) {
           if (err) {
+            console.log("docClient put error = ", err);
             reject(err);
           } else {
             console.log("great success: ", JSON.stringify(dbModel, null, 2));
@@ -41,6 +42,7 @@ const SensorSev = {
           }
         });
       } catch (error) {
+        console.log("insert err = ", error);
         reject(error);
       }
     });

@@ -29,6 +29,7 @@ if (process.env.NODE_ENV === "client") {
   require("./routes/rfid")(app);
   require("./routes/broadcast")(app);
   require("./routes/end_device")(app);
+  require("./routes/interval")(app);
   require("./routes/webapp")(app, request);
 }
 require("./routes/error_handle")(app);
