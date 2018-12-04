@@ -21,6 +21,31 @@ module.exports = app => {
       res.send(err);
     });
     if (!result) return;
-    res.send(result);
+    let ipAddr = result[0].end_device.ip;
+    console.log("result[0] = ", result[0]);
+    const server = dgram.createSocket("udp4");
+
+    let msgObj = {
+      action: "setInterval",
+      value: [result[0].device_id, seconds]
+    };
+
+    let message = new Buffer(JSON.stringify(msgObj));
+    server.bind(function() {
+      server.setBroadcast(true);
+
+      server.send(
+        message,
+        0,
+        message.length,
+        6024,
+        ipAddr,
+        function() {
+          console.log("Sent '" + message + "' Action");
+          server.close();
+        }
+      );
+    });
+    res.send("Sent '" + message + "' TO ip:" + ipAddr + " successful!");
   });
 };
